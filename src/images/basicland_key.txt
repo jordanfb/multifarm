@@ -1,0 +1,163 @@
+-- this is the key file for the basicland image.
+-- these should be ignored as comments, and empty lines are ignored as well
+
+
+
+-- then we get into the meat of things
+-- tile width
+-- in this case 32*4 so:
+128
+-- tile height
+128
+
+-- key for this tile (a string)
+7
+-- color palette data
+3
+grass
+grasshighlight
+sand
+-- then the number of tiles to the right the next version of it is
+3
+-- x coord for leftmost color palette version of tile
+0
+-- y coord for leftmost color palette version of tile
+0
+
+-- then start again from key onward!
+8
+3
+grass
+grasshighlight
+sand
+3
+1
+0
+
+9
+3
+grass
+grasshighlight
+sand
+3
+2
+0
+
+4
+3
+grass
+grasshighlight
+sand
+3
+0
+1
+
+-- five is the empty space inside the thing. it doesn't exist. go me.
+-- 5
+-- 3
+-- grass
+-- grasshighlight
+-- sand
+-- 3
+-- 1
+-- 1
+
+6
+3
+grass
+grasshighlight
+sand
+3
+2
+1
+
+1
+3
+grass
+grasshighlight
+sand
+3
+0
+2
+
+2
+3
+grass
+grasshighlight
+sand
+3
+1
+2
+
+3
+3
+grass
+grasshighlight
+sand
+3
+2
+2
+
+-- note that in this one I'm using {}[] as my four tiny corner things, because it's much easier to remember which goes where. We'll see if that's a good idea.
+{
+3
+grass
+grasshighlight
+sand
+3
+0
+3
+
+}
+3
+grass
+grasshighlight
+sand
+3
+1
+3
+
+[
+3
+grass
+grasshighlight
+sand
+3
+0
+4
+
+]
+3
+grass
+grasshighlight
+sand
+3
+1
+4
+
+-- this is the basic grass tile
+#
+2
+grass
+grasshighlight
+3
+0
+5
+
+-- this is the basic water
+~
+2
+water
+waterhighlight
+3
+1
+5
+
+-- this is basic ice
+-
+2
+ice
+icehighlight
+3
+2
+5
