@@ -33,6 +33,7 @@ function MainMenu:buttonCallback(id, value)
 			-- start playing! Yay!
 			print("play")
 			self.game:addToScreenStack(self.game.testClient)
+			self.game.inputManager:setContext("gameplay")
 		end
 	end
 end

@@ -70,7 +70,6 @@ end
 
 function Server:packetTest(numTries, printTests)
 	local startTime = os.clock()
-	math.randomseed(os.time())
 	local worked = true
 	for i = 1, numTries do
 		local struct = self.protocol[math.random(1, #self.protocol)]

@@ -1,0 +1,24 @@
+-- this is the key file for the basicland image.
+-- these should be ignored as comments, and empty lines are ignored as well
+
+
+
+-- then we get into the meat of things
+-- tile width
+-- in this case 32*4  *4 so:
+512
+-- tile height 32*4   *5
+640
+
+-- key for this tile (a string)
+farmhouse
+-- color palette data
+2
+white
+lights
+-- then the number of tiles to the right the next version of it is
+1
+-- x coord for leftmost color palette version of tile
+0
+-- y coord for leftmost color palette version of tile
+0

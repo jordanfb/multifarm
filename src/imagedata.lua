@@ -1,8 +1,18 @@
+--[[
+Image data class, used in anything which needs to be displayed.
+Images are all split into colors at the moment, except for things which aren't. Cause yeah.
+But there can also be single things
+and there can also be strange shaped images.
+Yeah.
+]]--
+
+
+
 -- this is the tile class
 
-Tile = {}
+ImageData = {}
 
-function Tile:new(args)
+function ImageData:new(args)
 	local object = {}
 	setmetatable(object, self)
 	self.__index = self
@@ -12,14 +22,14 @@ function Tile:new(args)
 	return object
 end
 
-function Tile:init(args)
+function ImageData:init(args)
 	-- self.game = args.game
-	self.tileData = args
+	self.args = args
 	self.key = args.key
 	self.image = args.image
 	self.colorPalette = args.colorPalette
-	self.tilewidth = args.tilewidth
-	self.tileheight = args.tileheight
+	self.imagewidth = args.width
+	self.imageheight = args.height
 	-- now make the quad for that image for that set of data, and be happy! lol
 	self.quads = {}
 	-- print("making tile "..self.key)
@@ -27,17 +37,23 @@ function Tile:init(args)
 		-- load the quad for each section of the color palette
 		-- print("loading color quad at "..(args.x+(i-1)*args.nextcolorwidth))
 		-- print("y: "..args.y)
-		self.quads[self.colorPalette[i]] = love.graphics.newQuad((args.x+(i-1)*args.nextcolorwidth)*self.tilewidth,
-							args.y*self.tileheight, self.tilewidth, self.tileheight, self.image:getWidth(), self.image:getHeight())
+		self.quads[self.colorPalette[i]] = love.graphics.newQuad((args.x+(i-1)*args.nextcolorwidth)*self.imagewidth,
+							args.y*self.imageheight, self.imagewidth, self.imageheight, self.image:getWidth(), self.image:getHeight())
 	end
 end
 
+function ImageData:drawAll(locData, camera, colors)
+	-- draws each color in the order of colorPalette, useful for tiles, etc.
+	for i = 1, #self.colorPalette do
+		self:drawLayer(self.colorPalette[i])
+	end
+end
 
-function Tile:draw(tileData, camera, colors)
+function ImageData:drawLayer(layer, locData, camera, colors)
 	-- it gets passed in the tile location, and maybe special animation things later, the camera coords, scale, and screenwidth+height, and the
 	-- color table that determines what each of these colorPalatte colors are
-	local drawX = math.floor((tileData.x - camera.x)*camera.scale+camera.screenWidth/2)
-	local drawY = math.floor((tileData.y - camera.y)*camera.scale+camera.screenHeight/2)
+	local drawX = math.floor((locData.x - camera.x)*camera.scale+camera.screenWidth/2)
+	local drawY = math.floor((locData.y - camera.y)*camera.scale+camera.screenHeight/2)
 	-- local drawR = self.loc.r + self.shipImageRotation - camera.r -- this R currently doesn't work at all...
 	
 	-- replacing this with drawing "loaded" chunk images and then using those, even with animations it should be better as long as they are in sync.
@@ -46,16 +62,21 @@ function Tile:draw(tileData, camera, colors)
 	-- 	return
 	-- end
 
-	for i = 1, #self.colorPalette do
-		-- local offset = (i-1)*(self.tileheight*camera.scale)
-		if colors[self.colorPalette[i]] then
-			love.graphics.setColor(colors[self.colorPalette[i]])
-		end
-		-- then draw the quad for that color
-		love.graphics.draw(self.image, self.quads[self.colorPalette[i]], drawX, drawY, 0, camera.scale, camera.scale)--, self.tilewidth/2, self.tileheight/2)
+	if colors[layer] then
+		love.graphics.setColor(colors[layer])
 	end
-	love.graphics.setColor(0, 0, 0)
-	-- love.graphics.print(#tileData.keys, drawX, drawY)
+	love.graphics.draw(self.image, self.quads[layer], drawX, drawY, 0, camera.scale, camera.scale)--, self.imagewidth/2, self.imageheight/2)
+
+	-- for i = 1, #self.colorPalette do
+	-- 	-- local offset = (i-1)*(self.imageheight*camera.scale)
+	-- 	if colors[self.colorPalette[i]] then
+	-- 		love.graphics.setColor(colors[self.colorPalette[i]])
+	-- 	end
+	-- 	-- then draw the quad for that color
+	-- 	love.graphics.draw(self.image, self.quads[self.colorPalette[i]], drawX, drawY, 0, camera.scale, camera.scale)--, self.imagewidth/2, self.imageheight/2)
+	-- end
+	-- love.graphics.setColor(0, 0, 0)
+	-- -- love.graphics.print(#tileData.keys, drawX, drawY)
 end
 
 --[[

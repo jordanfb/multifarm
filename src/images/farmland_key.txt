@@ -1,0 +1,23 @@
+-- this is the key file for the basicland image.
+-- these should be ignored as comments, and empty lines are ignored as well
+
+
+
+-- then we get into the meat of things
+-- tile width
+-- in this case 32*4 so:
+128
+-- tile height 32*4
+128
+
+-- then start again from key onward!
+--imagekey
+-- then number of frames
+--3
+--grass
+--grasshighlight
+--sand
+-- number of tiles to the right the next frame is, then x, then y
+--3
+--1
+--0

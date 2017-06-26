@@ -1,9 +1,10 @@
+-- this is a building class, it loads on world generation or something, and it contains the interior that can be drawn. Probably.
+
 
 require "tile" -- to make new tiles! duh!
-require "imageData"
-ImageManager = {}
+Building = {}
 
-function ImageManager:new(args)
+function Building:new(args)
 	local object = {}
 	setmetatable(object, self)
 	self.__index = self
@@ -13,17 +14,15 @@ function ImageManager:new(args)
 	return object
 end
 
-function ImageManager:init(args)
+function Building:init(args)
 	self.tilefiles = args.tilefiles -- a table of tile file bases
 	self.client = args.client
 	self.tiles = {} -- this is just given straight back to the client
 
-	-- self.images = {} -- now we're moving towards images, we should probably have a tile manager as well?
-
 	self:loadFiles()
 end
 
-function ImageManager:loadFiles()
+function Building:loadFiles()
 	-- as a comment, I may want to add additional things to the begining of files that specify what type of thing they are (building, tile, etc.) in order to
 	-- have custom things like "center of building" for buildings and trees
 	for _, tilefile in ipairs(self.tilefiles) do
@@ -80,6 +79,6 @@ function ImageManager:loadFiles()
 	end
 end
 
-function ImageManager:getTiles()
+function Building:getTiles()
 	return self.tiles
 end
