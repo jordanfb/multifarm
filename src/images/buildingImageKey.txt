@@ -1,0 +1,45 @@
+-- Things we need to load:
+-- image filename -- filename
+
+-- then for each sub-image in the image file, we need:
+-- name of sub image -- key
+-- size of sub image -- imagewidth, imageheight
+-- location, xloc, yloc
+-- number of colors -- numberofcolors then the number
+-- names of colors -- colornames, and then write down each name
+-- offset of colors -- xoffset, yoffset
+-- then end with -- done
+
+-- this is the key file for most of the building images. Why not put them all together.
+
+
+
+
+
+
+filename
+farmhouse_image.png
+
+numberOfColors
+2
+colorNames
+white
+lights
+
+xoffset
+1
+yoffset
+0
+
+-- do the whole thing for backwards compatability, but also split it into above and below images for the future
+key
+farmhouse
+imagewidth
+512
+imageheight
+640
+xloc
+0
+yloc
+0
+done

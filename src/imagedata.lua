@@ -28,8 +28,13 @@ function ImageData:init(args)
 	self.key = args.key
 	self.image = args.image
 	self.colorPalette = args.colorPalette
-	self.imagewidth = args.width
-	self.imageheight = args.height
+	self.imagewidth = args.imageSize.width
+	self.imageheight = args.imageSize.height
+
+	-- location
+	local x = args.location.x
+	local y = args.location.y
+
 	-- now make the quad for that image for that set of data, and be happy! lol
 	self.quads = {}
 	-- print("making tile "..self.key)
@@ -37,15 +42,19 @@ function ImageData:init(args)
 		-- load the quad for each section of the color palette
 		-- print("loading color quad at "..(args.x+(i-1)*args.nextcolorwidth))
 		-- print("y: "..args.y)
-		self.quads[self.colorPalette[i]] = love.graphics.newQuad((args.x+(i-1)*args.nextcolorwidth)*self.imagewidth,
-							args.y*self.imageheight, self.imagewidth, self.imageheight, self.image:getWidth(), self.image:getHeight())
+		self.quads[self.colorPalette[i]] = love.graphics.newQuad((x+(i-1)*args.colorOffset.x)*self.imagewidth,
+							y*self.imageheight, self.imagewidth, self.imageheight, self.image:getWidth(), self.image:getHeight())
 	end
+end
+
+function ImageData:draw(locData, camera, colors)
+	self:drawAll(locData, camera, colors)
 end
 
 function ImageData:drawAll(locData, camera, colors)
 	-- draws each color in the order of colorPalette, useful for tiles, etc.
 	for i = 1, #self.colorPalette do
-		self:drawLayer(self.colorPalette[i])
+		self:drawLayer(self.colorPalette[i], locData, camera, colors)
 	end
 end
 
@@ -64,8 +73,10 @@ function ImageData:drawLayer(layer, locData, camera, colors)
 
 	if colors[layer] then
 		love.graphics.setColor(colors[layer])
+	else
+		error("Color "..layer.." doesn't exist for drawing, so errored")
 	end
-	love.graphics.draw(self.image, self.quads[layer], drawX, drawY, 0, camera.scale, camera.scale)--, self.imagewidth/2, self.imageheight/2)
+	love.graphics.draw(self.image, self.quads[layer], drawX, drawY, 0, camera.scale, camera.scale, self.imagewidth/2, self.imageheight/2)
 
 	-- for i = 1, #self.colorPalette do
 	-- 	-- local offset = (i-1)*(self.imageheight*camera.scale)

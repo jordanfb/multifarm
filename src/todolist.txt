@@ -1,0 +1,11 @@
+Things to do for this game:
+
+
+Change around images to use imagedata class
+set up tiles to work correctly
+set up networking
+
+then after that it's pretty much set. Do I care if the client doesn't know how much longer for the tile to grow? Probably not.
+
+Once there's that done, I can work on animals and rooms and day/night cycles.
+And full multiplayer instead of fake multiplayer.

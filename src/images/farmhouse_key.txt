@@ -1,4 +1,4 @@
--- this is the key file for the basicland image.
+-- this is the key file for the farmhouse image.
 -- these should be ignored as comments, and empty lines are ignored as well
 
 

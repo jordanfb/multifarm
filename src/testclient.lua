@@ -21,24 +21,24 @@ function TestClient:init(args)
 
 	self.game = args.game
 
-	self.imageManager = ImageManager:new{tilefiles = {"basicland", "farmhouse", "spacemanLarge"}, client = self}
+	self.imageManager = ImageManager:new{imageKeyFilenames = {"basicTileImages.txt", "playerImagesKey.txt", "buildingImageKey.txt"}, client = self} -- {"basicland", "farmhouse", "spacemanLarge"}
 
-	self.tiles = self.imageManager:getTiles() -- list of tile key to tile class. Tile class has images, quads, and magic.
+	self.images = self.imageManager:getImages() -- list of tile key to tile class. Tile class has images, quads, and magic.
 
 	self.camera = {x = 128*32, y = 128*32, scale = .5, screenWidth = love.graphics.getWidth(), screenHeight = love.graphics.getHeight()}
 
 	self.colorScheme = {grass = {163, 206, 39, 255}, grasshighlight = {68, 137, 26, 255}, sand = {246, 226, 107, 255},
 						water = {49, 162, 242, 255}, waterhighlight = {0, 87, 132, 255},
 						ice = {178, 220, 239, 255}, icehighlight = {49, 162, 242, 255},
-						white = {255, 255, 255, 255}, lights = {246, 128, 17, 255}
-					}
+						white = {255, 255, 255, 255}, lights = {246, 200, 200, 255}
+					}--lights = {246, 128, 17, 255}
 
 	self.tilewidth = 128
 	self.tileheight = 128
 	self.chunkSize = 64
 	self:loadTestWorld()
 
-	self.testPlayer = Player:new{client = self, tiles = self.tiles}
+	self.testPlayer = Player:new{client = self, images = self.images}
 	self.camera.x = self.testPlayer.x
 	self.camera.y = self.testPlayer.y
 end
@@ -185,7 +185,7 @@ end
 
 function TestClient:testTileDraw()
 	local i = 0
-	for k, v in pairs(self.tiles) do
+	for k, v in pairs(self.images) do
 		v:draw({x = i*128*1.5, y = 0}, self.camera, self.colorScheme)
 		-- print(k)
 		i = i + 1
@@ -201,11 +201,14 @@ function TestClient:drawChunkOntoCanvas(chunkx, chunky, canvas)
 end
 
 function TestClient:drawChunkRaw(chunkx, chunky, camera)
+	-- for k, v in pairs(self.images) do
+	-- 	print(k..": "..v.key)
+	-- end
 	for y = 0, self.chunkSize-1 do
 		for x = 0, self.chunkSize-1 do
 			for _, tileType in ipairs(self.world.chunks[chunky][chunkx][y][x].keys) do
 				-- print(tileType)
-				self.tiles[tileType]:draw(self.world.chunks[chunky][chunkx][y][x], camera, self.colorScheme)
+				self.images["tile"..tileType]:draw(self.world.chunks[chunky][chunkx][y][x], camera, self.colorScheme)
 			end
 		end
 	end
@@ -229,7 +232,7 @@ end
 function TestClient:draw()
 	-- self:testTileDraw()
 	self:drawChunk(0, 0, self.camera)
-	self.tiles.farmhouse:draw({x = 0, y = 0, keys = {"farmhouse"}}, self.camera, self.colorScheme)
+	self.images.farmhouse:draw({x = 0, y = 0, keys = {"farmhouse"}}, self.camera, self.colorScheme)
 	self.testPlayer:draw(self.camera)
 end
 

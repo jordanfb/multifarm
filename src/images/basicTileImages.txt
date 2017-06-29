@@ -1,0 +1,186 @@
+-- Things we need to load:
+-- image filename -- filename
+
+-- then for each sub-image in the image file, we need:
+-- name of sub image -- key
+-- size of sub image -- imagewidth, imageheight
+-- location, xloc, yloc
+-- number of colors -- numberofcolors then the number
+-- names of colors -- colornames, and then write down each name
+-- offset of colors -- xoffset, yoffset
+-- then end with -- done
+
+-- this is the key file for most of the tile images. Why not put them all together.
+
+
+-- tile sizes are all 128x128:
+imagewidth
+128
+imageheight
+128
+
+-- first image is basicland_image.png
+filename
+basicland_image.png
+
+
+numberofcolors
+3
+colornames
+grass
+grasshighlight
+sand
+
+xoffset
+3
+yoffset
+0
+
+
+key
+tile7
+xloc
+0
+yloc
+0
+done
+
+key
+tile8
+xloc
+1
+yloc
+0
+done
+
+key
+tile9
+xloc
+2
+yloc
+0
+done
+
+key
+tile4
+xloc
+0
+yloc
+1
+done
+
+-- five is the empty space inside the thing. it doesn't exist. go me.
+-- tile5
+-- 1
+-- 1
+
+key
+tile6
+xloc
+2
+yloc
+1
+done
+
+key
+tile1
+xloc
+0
+yloc
+2
+done
+
+key
+tile2
+xloc
+1
+yloc
+2
+done
+
+key
+tile3
+xloc
+2
+yloc
+2
+done
+
+-- note that in this one I'm using {}[] as my four tiny corner things, because it's much easier to remember which goes where. We'll see if that's a good idea.
+
+key
+tile{
+xloc
+0
+yloc
+3
+done
+
+key
+tile}
+xloc
+1
+yloc
+3
+done
+
+key
+tile[
+xloc
+0
+yloc
+4
+done
+
+key
+tile]
+xloc
+1
+yloc
+4
+done
+
+-- this is the basic grass tile
+numberofcolors
+2
+colornames
+grass
+grasshighlight
+
+key
+tile#
+xloc
+0
+yloc
+5
+done
+
+-- this is the basic water
+numberofcolors
+2
+colornames
+water
+waterhighlight
+
+key
+tile~
+xloc
+1
+yloc
+5
+done
+
+-- this is basic ice
+numberofcolors
+2
+colornames
+ice
+icehighlight
+
+key
+tile-
+xloc
+2
+yloc
+5
+done

@@ -21,7 +21,7 @@ function Player:init(args)
 
 	-- self.game = args.game
 	self.colorScheme = args.colorScheme or {bodyColor = {128, 255, 128}, helmetColor = {128, 128, 255}}
-	self.tile = args.tiles["spaceman"]
+	self.image = args.images["spaceman"]
 
 	self.x = args.x or 0
 	self.y = args.y or 0
@@ -66,7 +66,7 @@ function Player:update(dt)
 end
 
 function Player:draw(camera)
-	self.tile:draw({x = self.x, y = self.y, keys = {"spaceman"}}, camera, self.colorScheme)
+	self.image:draw({x = self.x, y = self.y, keys = {"spaceman"}}, camera, self.colorScheme)
 end
 
 -- function Player:loadFiles()

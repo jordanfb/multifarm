@@ -1,0 +1,40 @@
+-- Things we need to load:
+-- image filename -- filename
+
+-- then for each sub-image in the image file, we need:
+-- name of sub image -- key
+-- size of sub image -- imagewidth, imageheight
+-- location, xloc, yloc
+-- number of colors -- numberofcolors then the number
+-- names of colors -- colornames, and then write down each name
+-- offset of colors -- xoffset, yoffset
+-- then end with -- done
+
+-- this is the key file for most of the player images. Why not put them all together.
+
+filename
+spacemanLarge_image.png
+
+imagewidth
+128
+imageheight
+128
+
+numberOfColors
+2
+colorNames
+bodyColor
+helmetColor
+
+xoffset
+1
+yoffset
+0
+
+key
+spaceman
+xloc
+2
+yloc
+0
+done
