@@ -30,6 +30,7 @@ function ImageData:init(args)
 	self.colorPalette = args.colorPalette
 	self.imagewidth = args.imageSize.width
 	self.imageheight = args.imageSize.height
+	self.drawOffset = args.drawOffset or {x = .5, y = .5}
 
 	-- location
 	local x = args.location.x
@@ -76,7 +77,7 @@ function ImageData:drawLayer(layer, locData, camera, colors)
 	else
 		error("Color "..layer.." doesn't exist for drawing, so errored")
 	end
-	love.graphics.draw(self.image, self.quads[layer], drawX, drawY, 0, camera.scale, camera.scale, self.imagewidth/2, self.imageheight/2)
+	love.graphics.draw(self.image, self.quads[layer], drawX, drawY, 0, camera.scale, camera.scale, self.imagewidth*self.drawOffset.x, self.imageheight*self.drawOffset.y)
 
 	-- for i = 1, #self.colorPalette do
 	-- 	-- local offset = (i-1)*(self.imageheight*camera.scale)

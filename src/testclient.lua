@@ -1,6 +1,7 @@
 
 require "imagemanager"
 require "player"
+require "map"
 
 TestClient = {}
 
@@ -25,7 +26,7 @@ function TestClient:init(args)
 
 	self.images = self.imageManager:getImages() -- list of tile key to tile class. Tile class has images, quads, and magic.
 
-	self.camera = {x = 128*32, y = 128*32, scale = .5, screenWidth = love.graphics.getWidth(), screenHeight = love.graphics.getHeight()}
+	self.camera = {x = 0, y = 0, scale = .5, screenWidth = love.graphics.getWidth(), screenHeight = love.graphics.getHeight()}
 
 	self.colorScheme = {grass = {163, 206, 39, 255}, grasshighlight = {68, 137, 26, 255}, sand = {246, 226, 107, 255},
 						water = {49, 162, 242, 255}, waterhighlight = {0, 87, 132, 255},
@@ -38,9 +39,25 @@ function TestClient:init(args)
 	self.chunkSize = 64
 	self:loadTestWorld()
 
+	self.map = MapDrawable:new{client = self, camera = self.camera, isServer = true, images = self.images, colorScheme = self.colorScheme}
+
 	self.testPlayer = Player:new{client = self, images = self.images}
 	self.camera.x = self.testPlayer.x
 	self.camera.y = self.testPlayer.y
+end
+
+function TestClient:screenCoordsToTileCoords(screenX, screenY)
+	if screenY == nil then -- then screenX is a table of coords.
+		screenY = screenX.y
+		screenX = screenX.x
+	end
+	local tileX = screenX/self.camera.scale + self.camera.x
+	local tileY = screenY/self.camera.scale + self.camera.y
+	tileX = tileX -- / self.camera.scale
+	tileY = tileY -- / self.camera.scale
+	tileX = tileX / 128
+	tileY = tileY / 128
+	return {x = math.floor(tileX), y = math.floor(tileY), xfloat = tileX, yfloat = tileY}
 end
 
 function TestClient:testLoadChunk(args)
@@ -231,7 +248,8 @@ end
 
 function TestClient:draw()
 	-- self:testTileDraw()
-	self:drawChunk(0, 0, self.camera)
+	-- self:drawChunk(0, 0, self.camera)
+	self.map:draw()
 	self.images.farmhouse:draw({x = 0, y = 0, keys = {"farmhouse"}}, self.camera, self.colorScheme)
 	self.testPlayer:draw(self.camera)
 end
@@ -259,10 +277,14 @@ function TestClient:update(dt)
 	self.testPlayer:update(dt)
 	self.camera.x = self.testPlayer.x
 	self.camera.y = self.testPlayer.y
+
+	self.map:update(dt)
 end
 
 function TestClient:resize(w, h)
-	--
+	self.camera.screenWidth = w
+	self.camera.screenHeight = h
+	print("Resized window")
 end
 
 function TestClient:handleinput(input)
@@ -272,6 +294,11 @@ function TestClient:handleinput(input)
 			self.camera.scale = self.camera.scale*2
 		elseif input[1] == "zoomout" then
 			self.camera.scale = self.camera.scale/2
+		elseif input[1] == "test" then
+			-- local coords = self:screenCoordsToTileCoords(love.mouse.getX(), love.mouse.getY())
+			self.map:testMouse()
+		elseif input[1] == "fullscreen" then
+			love.window.setFullscreen(not love.window.getFullscreen())
 		end
 	elseif input[2] == 0 then
 		-- released

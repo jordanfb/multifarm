@@ -89,6 +89,10 @@ function Game:update(dt)
 	self.inputManager:update(dt)
 end
 
+function Game:resize(w, h)
+	self.screenStack[#self.screenStack]:resize(w, h)
+end
+
 function Game:handleinput(input)
 	-- input is probably a table? or it could have x and y values and that'd be it...
 	if input[1] then

@@ -11,7 +11,7 @@ end
 function InputManager:init()
 	self.context = "menu"
 	self.menumap = {space = "select", up = "up", down = "down", left = "left", right = "right", enter = "select"}
-	self.gameplaymap = {w = "moveup", a = "moveleft", s = "movedown", d = "moveright", ["-"] = "zoomout", ["="]="zoomin"}
+	self.gameplaymap = {w = "moveup", a = "moveleft", s = "movedown", d = "moveright", ["-"] = "zoomout", ["="]="zoomin", space = "test", f2 = "fullscreen"}
 	self.allmaps = {menu = self.menumap, gameplay = self.gameplaymap}
 	self.valuemap = {}
 	self.mouseX = love.mouse.getX()

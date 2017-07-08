@@ -40,6 +40,7 @@ function ImageManager:loadImages(imageTable, imageKeyFilenames, filepath)
 		local colorNames = {}
 		local colorOffset = {x = 1, y = 0}
 		local imageSize = {width = -1, height = -1}
+		local drawOffset = {x = .5, y = .5}
 		for line in love.filesystem.lines(filepath..keyFilename) do
 			-- Things we need to load:
 			-- image filename -- filename
@@ -55,8 +56,12 @@ function ImageManager:loadImages(imageTable, imageKeyFilenames, filepath)
 					loadstate = line:lower()
 					if loadstate == "done" then
 						-- it's done with that one, so make the image and go onto the next
+						if imageTable[imagename] then
+							-- then something using that name already exists, but we're just going to let it go with a warning for now
+							print("Warning: image name '"..imagename.."' has been overwritten.")
+						end
 						imageTable[imagename] = ImageData:new{image = image, key = imagename, location = location, colorPalette = colorNames,
-									colorOffset = colorOffset, imageSize = imageSize}
+									colorOffset = colorOffset, imageSize = imageSize, drawOffset = drawOffset}
 						-- table.insert(imageTable, ImageData:new{image = image, key = imagename, location = location, colorPalette = colorNames,
 						-- 			colorOffset = colorOffset, imageSize = imageSize})
 						loadstate = nil
@@ -78,6 +83,10 @@ function ImageManager:loadImages(imageTable, imageKeyFilenames, filepath)
 						colorOffset.x = tonumber(line)
 					elseif loadstate == "yoffset" then
 						colorOffset.y = tonumber(line)
+					elseif loadstate == "xdrawoffset" then
+						drawOffset.x = tonumber(line)
+					elseif loadstate == "ydrawoffset" then
+						drawOffset.y = tonumber(line)
 					elseif loadstate == "key" then
 						imagename = line
 					elseif loadstate == "imagewidth" then

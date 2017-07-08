@@ -31,9 +31,38 @@ xoffset
 yoffset
 0
 
--- do the whole thing for backwards compatability, but also split it into above and below images for the future
+xDrawOffset
+0
+yDrawOffset
+0
+
+-- do theg whole thing for backwards compatability, but also split it into above and below images for the future
 key
 farmhouse
+imagewidth
+512
+imageheight
+640
+xloc
+0
+yloc
+0
+done
+
+key
+farmhousetop
+imagewidth
+512
+imageheight
+640
+xloc
+0
+yloc
+0
+done
+
+key
+farmhousebottom
 imagewidth
 512
 imageheight

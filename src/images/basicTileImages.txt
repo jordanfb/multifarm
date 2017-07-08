@@ -1,5 +1,7 @@
 -- Things we need to load:
 -- image filename -- filename
+-- xDrawOffset -- a fraction from 0 to 1 of where the x coordinate of the center of the image is when it's drawn
+-- yDrawOffset -- same but for the y coordinate
 
 -- then for each sub-image in the image file, we need:
 -- name of sub image -- key
@@ -18,6 +20,12 @@ imagewidth
 128
 imageheight
 128
+
+-- draw offset should be 0 for the tiles
+xDrawOffset
+0
+yDrawOffset
+0
 
 -- first image is basicland_image.png
 filename
@@ -184,3 +192,48 @@ xloc
 yloc
 5
 done
+
+
+filename
+farmland.png
+
+numberofcolors
+1
+colornames
+white
+
+key
+tile#
+xloc
+0
+yloc
+0
+done
+
+key
+tilefarmland^
+xloc
+0
+yloc
+1
+
+key
+tilefamrland|
+xloc
+0
+yloc
+2
+
+key
+tilefarmlandv
+xloc
+0
+yloc
+3
+
+key
+tilefamrlando
+xloc
+1
+yloc
+0

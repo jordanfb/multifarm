@@ -13,7 +13,7 @@ require "game"
 game = Game:new()
 
 function love.load(args)
-	love.window.setMode(1920/2, 1080/2, {resizable = true, vsync = false, fullscreen = false})
+	love.window.setMode(1920/2, 1080/2, {resizable = false, vsync = false, fullscreen = false})
 	-- love.window.setTitle("MultiFarm")
 	love.math.setRandomSeed(os.time())
 	math.randomseed(os.time()) 
@@ -55,4 +55,8 @@ end
 
 function love.mousereleased(button, x, y)
 	game:mousereleased(button, x, y)
+end
+
+function love.resize(w, h)
+	game:resize(w, h)
 end

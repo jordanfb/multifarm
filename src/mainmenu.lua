@@ -19,7 +19,7 @@ function MainMenu:init(game)
 	self.inputManager = game.inputManager
 
 	-- stuff:
-	local buttonTable = {x = love.graphics.getWidth()/2, y = love.graphics.getHeight()/2, game = self.game, key = "space",
+	local buttonTable = {x = 1/2, y = 1/2, game = self.game, key = "space",
 						text = "Play", callbackFunction = MainMenu.buttonCallback, callbackArea = self}
 	self.playButton = Button:new()
 	self.playButton:init(buttonTable)

@@ -40,10 +40,10 @@ function Button:draw()
 	else
 		love.graphics.setColor(self.color)
 	end
-	love.graphics.rectangle("fill", self.x - self.width/2, self.y - self.height/2, self.width, self.height)
+	love.graphics.rectangle("fill", self.x*love.graphics.getWidth() - self.width/2, self.y*love.graphics.getHeight() - self.height/2, self.width, self.height)
 	love.graphics.setColor(self.textColor)
 	-- love.graphics.printf(self.text, self.x-self.width/2, self.y, self.width, "center")
-	love.graphics.draw(self.drawText, self.x-self.drawText:getWidth()/2, self.y-self.drawText:getHeight()/2)
+	love.graphics.draw(self.drawText, self.x*love.graphics.getWidth()-self.drawText:getWidth()/2, self.y*love.graphics.getHeight()-self.drawText:getHeight()/2)
 end
 
 function Button:update(dt)
